@@ -1,0 +1,817 @@
+Microsoft Windows [Version 10.0.18363.1556]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\shaizad>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use python_8_10;
+Database changed
+MariaDB [python_8_10]> create table actor
+    -> (act_id int,
+    -> act_fname varchar(20),
+    -> act_lname varchar(20),
+    -> act_gender char(1));
+Query OK, 0 rows affected (0.504 sec)
+
+
+MariaDB [python_8_10]> insert into actor values
+    -> (1,"SALMAN","KHAN","M"),
+    -> (2,"SHAHRUKH","KHAN","M"),
+    -> (3,"AKSHAY","KUMAR","M"),
+    -> (4,"KATRINA","KAIF","F"),
+    -> (5,"KAREENA","KAPOOR","F"),
+    -> (6,"URVASHI","RAUTELA","F"),
+    -> (7,"VICKY","KAUSHAL","M"),
+    -> (8,"JOHNNY","DEPP","M"),
+    -> (9,"RAJKUMAR","RAO","M"),
+    -> (10,"VICKY","KAUSHAL","M"),
+    -> (11,"KIRTI","SANON","F");
+Query OK, 11 rows affected (0.338 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> create table movie_cast
+    -> (act_id int,
+    -> mov_id int primary key,
+    -> role varchar(30),
+    -> foreign key(act_id) references actor(act_id));
+ERROR 1005 (HY000): Can't create table `python_8_10`.`movie_cast` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> drop table actor;
+Query OK, 0 rows affected (0.305 sec)
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> create table actor
+    -> (act_id int primary key,
+    -> act_fname varchar(20),
+    -> act_lname varchar(20),
+    -> act_gender char(1));
+Query OK, 0 rows affected (0.107 sec)
+
+MariaDB [python_8_10]> insert into actor values
+    -> (1,"SALMAN","KHAN","M"),
+    -> (2,"SHAHRUKH","KHAN","M"),
+    -> (3,"AKSHAY","KUMAR","M"),
+    -> (4,"KATRINA","KAIF","F"),
+    -> (5,"KAREENA","KAPOOR","F"),
+    -> (6,"URVASHI","RAUTELA","F"),
+    -> (7,"VICKY","KAUSHAL","M"),
+    -> (8,"JOHNNY","DEPP","M"),
+    -> (9,"RAJKUMAR","RAO","M"),
+    -> (10,"VICKY","KAUSHAL","M"),
+    -> (11,"KIRTI","SANON","F");
+Query OK, 11 rows affected (0.122 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from actor;
++--------+-----------+-----------+------------+
+| act_id | act_fname | act_lname | act_gender |
++--------+-----------+-----------+------------+
+|      1 | SALMAN    | KHAN      | M          |
+|      2 | SHAHRUKH  | KHAN      | M          |
+|      3 | AKSHAY    | KUMAR     | M          |
+|      4 | KATRINA   | KAIF      | F          |
+|      5 | KAREENA   | KAPOOR    | F          |
+|      6 | URVASHI   | RAUTELA   | F          |
+|      7 | VICKY     | KAUSHAL   | M          |
+|      8 | JOHNNY    | DEPP      | M          |
+|      9 | RAJKUMAR  | RAO       | M          |
+|     10 | VICKY     | KAUSHAL   | M          |
+|     11 | KIRTI     | SANON     | F          |
++--------+-----------+-----------+------------+
+11 rows in set (0.085 sec)
+
+MariaDB [python_8_10]> create table movie_cast
+    -> (act_id int,
+    -> mov_id int,
+    -> role varchar(30),
+    -> foreign key(act_id) references actor(act_id));
+Query OK, 0 rows affected (0.247 sec)
+
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> insert into movie_cast values
+    -> (1,10,"DABANGG"),
+    -> (2,20,"ROMANTIC"),
+    -> (3,30,"THRILLER"),
+    -> (4,40,"DANCING"),
+    -> (5,50,"DRAMA"),
+    -> (6,60,"FUNNY"),
+    -> (7,70,"ACTION"),
+    -> (8,80,"FUNNY"),
+    -> (9,90,"COMEDY"),
+    -> (10,100,"STUNTS"),
+    -> (11,110,"GOSIPS");
+Query OK, 11 rows affected (0.123 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> create table movie
+    -> (mov_id int primary key,
+    -> mov_title varchar(50),
+    -> mov_year int,
+    -> mov_time int,
+    -> mov_lang varchar(50),
+    -> mov_dt_rel date,
+    -> movie_rel_country varchar(5));
+Query OK, 0 rows affected (0.203 sec)
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> insert into movie values
+    -> (01,"DABANGG",2013,128,"HINDI",1958-08-24,"INDIA"),
+    -> (02,"PIRANHA",2010,100,"ENGLISH",1962-02-19,"AMERICA"),
+    -> (03,"BAHUBALI",2015,216,"TELUGU",1962-02-11,"UK"),
+    -> (04,"SAHO",2020,183,"TAMIL",1979-03-08,"AUSTRAILIA"),
+    -> (05,"BHAUKAL",2019,112,"MALAYALAM",1985-01-07,"PAKISTAN"),
+    -> (06,"SHOLAY",1974,117,"HINDI",1982-09-09,"INDIA"),
+    -> (07,"AETBAAR",2003,159,"ENGLISH",1995-08-25,"CHINA"),
+    -> (08,"MISSION IMPOSSIBLE",2016,115,"ENGLISH",1958-02-12,"UK"),
+    -> (09,"PAYING GUEST",2018,225,"CHINEESE",1956-06-15,"CHINA"),
+    -> (10,"TITAN",2017,212,"PORTUGUEESE",2021-05-29,"SPAIN"),
+    -> (11,"SOCCER",2022,456,"ENGLISH",2002-02-15,"MEXICO");
+Query OK, 11 rows affected, 15 warnings (0.145 sec)
+Records: 11  Duplicates: 0  Warnings: 15
+
+MariaDB [python_8_10]> DROP TABLE ACTOR;
+Query OK, 0 rows affected (0.195 sec)
+
+MariaDB [python_8_10]> create table actor
+    -> (act_id int primary key,
+    -> act_fname varchar(20),
+    -> act_lname varchar(20),
+    -> act_gender varchar(2));
+Query OK, 0 rows affected (0.329 sec)
+
+
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> insert into actor values
+    -> (1,"SALMAN","KHAN","M"),
+    -> (2,"SHAHRUKH","KHAN","M"),
+    -> (3,"AKSHAY","KUMAR","M"),
+    ->  (4,"KATRINA","KAIF","F"),
+    -> (5,"KAREENA","KAPOOR","F"),
+    ->  (6,"URVASHI","RAUTELA","F"),
+    ->  (7,"VICKY","KAUSHAL","M"),
+    -> (8,"JOHNNY","DEPP","M"),
+    -> (9,"RAJKUMAR","RAO","M"),
+    -> (10,"VICKY","KAUSHAL","M"),
+    -> (11,"KIRTI","SANON","F");
+Query OK, 11 rows affected (0.076 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from movie;
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+| mov_id | mov_title          | mov_year | mov_time | mov_lang    | mov_dt_rel | movie_rel_country |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+|      1 | DABANGG            |     2013 |      128 | HINDI       | 0000-00-00 | INDIA             |
+|      2 | PIRANHA            |     2010 |      100 | ENGLISH     | 0000-00-00 | AMERI             |
+|      3 | BAHUBALI           |     2015 |      216 | TELUGU      | 0000-00-00 | UK                |
+|      4 | SAHO               |     2020 |      183 | TAMIL       | 0000-00-00 | AUSTR             |
+|      5 | BHAUKAL            |     2019 |      112 | MALAYALAM   | 0000-00-00 | PAKIS             |
+|      6 | SHOLAY             |     1974 |      117 | HINDI       | 0000-00-00 | INDIA             |
+|      7 | AETBAAR            |     2003 |      159 | ENGLISH     | 0000-00-00 | CHINA             |
+|      8 | MISSION IMPOSSIBLE |     2016 |      115 | ENGLISH     | 0000-00-00 | UK                |
+|      9 | PAYING GUEST       |     2018 |      225 | CHINEESE    | 0000-00-00 | CHINA             |
+|     10 | TITAN              |     2017 |      212 | PORTUGUEESE | 0000-00-00 | SPAIN             |
+|     11 | SOCCER             |     2022 |      456 | ENGLISH     | 0000-00-00 | MEXIC             |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+11 rows in set (0.001 sec)
+
+MariaDB [python_8_10]> select * from actor;
++--------+-----------+-----------+------------+
+| act_id | act_fname | act_lname | act_gender |
++--------+-----------+-----------+------------+
+|      1 | SALMAN    | KHAN      | M          |
+|      2 | SHAHRUKH  | KHAN      | M          |
+|      3 | AKSHAY    | KUMAR     | M          |
+|      4 | KATRINA   | KAIF      | F          |
+|      5 | KAREENA   | KAPOOR    | F          |
+|      6 | URVASHI   | RAUTELA   | F          |
+|      7 | VICKY     | KAUSHAL   | M          |
+|      8 | JOHNNY    | DEPP      | M          |
+|      9 | RAJKUMAR  | RAO       | M          |
+|     10 | VICKY     | KAUSHAL   | M          |
+|     11 | KIRTI     | SANON     | F          |
++--------+-----------+-----------+------------+
+11 rows in set (0.000 sec)
+
+
+MariaDB [python_8_10]> create table movie_cast
+    -> (act_id int,
+    -> mov_id int,
+    -> role varchar(30),
+    -> foreign key(act_id) references actor(act_id),
+    -> foreign key(mov_id) references movie(mov_id));
+Query OK, 0 rows affected (0.281 sec)
+
+
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> insert into movie_cast values
+    -> (1,1,"DABANGG"),
+    -> (2,2,"ROMANTIC"),
+    -> (3,3,"THRILLER"),
+    -> (4,4,"DANCE"),
+    -> (5,5,"DRAMA"),
+    -> (6,6,"SIMPLE"),
+    -> (7,7,"ACTION"),
+    -> (8,8,"FUNNY"),
+    -> (9,9,"COMEDY"),
+    -> (10,10,"STUNTS"),
+    -> (11,11,"GOSSIPS");
+Query OK, 11 rows affected (0.140 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from movie cast;
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+| mov_id | mov_title          | mov_year | mov_time | mov_lang    | mov_dt_rel | movie_rel_country |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+|      1 | DABANGG            |     2013 |      128 | HINDI       | 0000-00-00 | INDIA             |
+|      2 | PIRANHA            |     2010 |      100 | ENGLISH     | 0000-00-00 | AMERI             |
+|      3 | BAHUBALI           |     2015 |      216 | TELUGU      | 0000-00-00 | UK                |
+|      4 | SAHO               |     2020 |      183 | TAMIL       | 0000-00-00 | AUSTR             |
+|      5 | BHAUKAL            |     2019 |      112 | MALAYALAM   | 0000-00-00 | PAKIS             |
+|      6 | SHOLAY             |     1974 |      117 | HINDI       | 0000-00-00 | INDIA             |
+|      7 | AETBAAR            |     2003 |      159 | ENGLISH     | 0000-00-00 | CHINA             |
+|      8 | MISSION IMPOSSIBLE |     2016 |      115 | ENGLISH     | 0000-00-00 | UK                |
+|      9 | PAYING GUEST       |     2018 |      225 | CHINEESE    | 0000-00-00 | CHINA             |
+|     10 | TITAN              |     2017 |      212 | PORTUGUEESE | 0000-00-00 | SPAIN             |
+|     11 | SOCCER             |     2022 |      456 | ENGLISH     | 0000-00-00 | MEXIC             |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+11 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from movie_cast;
++--------+--------+----------+
+| act_id | mov_id | role     |
++--------+--------+----------+
+|      1 |      1 | DABANGG  |
+|      2 |      2 | ROMANTIC |
+|      3 |      3 | THRILLER |
+|      4 |      4 | DANCE    |
+|      5 |      5 | DRAMA    |
+|      6 |      6 | SIMPLE   |
+|      7 |      7 | ACTION   |
+|      8 |      8 | FUNNY    |
+|      9 |      9 | COMEDY   |
+|     10 |     10 | STUNTS   |
+|     11 |     11 | GOSSIPS  |
++--------+--------+----------+
+11 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from movie;
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+| mov_id | mov_title          | mov_year | mov_time | mov_lang    | mov_dt_rel | movie_rel_country |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+|      1 | DABANGG            |     2013 |      128 | HINDI       | 0000-00-00 | INDIA             |
+|      2 | PIRANHA            |     2010 |      100 | ENGLISH     | 0000-00-00 | AMERI             |
+|      3 | BAHUBALI           |     2015 |      216 | TELUGU      | 0000-00-00 | UK                |
+|      4 | SAHO               |     2020 |      183 | TAMIL       | 0000-00-00 | AUSTR             |
+|      5 | BHAUKAL            |     2019 |      112 | MALAYALAM   | 0000-00-00 | PAKIS             |
+|      6 | SHOLAY             |     1974 |      117 | HINDI       | 0000-00-00 | INDIA             |
+|      7 | AETBAAR            |     2003 |      159 | ENGLISH     | 0000-00-00 | CHINA             |
+|      8 | MISSION IMPOSSIBLE |     2016 |      115 | ENGLISH     | 0000-00-00 | UK                |
+|      9 | PAYING GUEST       |     2018 |      225 | CHINEESE    | 0000-00-00 | CHINA             |
+|     10 | TITAN              |     2017 |      212 | PORTUGUEESE | 0000-00-00 | SPAIN             |
+|     11 | SOCCER             |     2022 |      456 | ENGLISH     | 0000-00-00 | MEXIC             |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+11 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> desc movie_cast;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| act_id | int(11)     | YES  | MUL | NULL    |       |
+| mov_id | int(11)     | YES  | MUL | NULL    |       |
+| role   | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.129 sec)
+
+MariaDB [python_8_10]> create table director
+    -> (dir_id int primary key,
+    -> dir_fname varchar(20),
+    -> dir_lname varchar(20));
+Query OK, 0 rows affected (0.203 sec)
+
+MariaDB [python_8_10]> insert into director values
+    -> (10,"DAVID","DHAVAN"),
+    -> (20,"KARAN","JOHAR"),
+    -> (30,"ROHIT","SHETTY"),
+    -> (40,"SANJAY","BHANSALI"),
+    -> (50,"RAJ","KAPOOR"),
+    -> (60,"RAJKUMMAR",HIRANI"),
+    "> ;
+    "> Bye
+
+C:\Users\shaizad>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE PYTHON_8_10;
+Database changed
+MariaDB [PYTHON_8_10]> create table director
+    -> (dir_id int primary key,
+    -> dir_fname varchar(20),
+    -> dir_lname varchar(20));
+ERROR 1050 (42S01): Table 'director' already exists
+MariaDB [PYTHON_8_10]>
+MariaDB [PYTHON_8_10]> insert into director values
+    -> (10,"DAVID","DHAVAN"),
+    -> (20,"KARAN","JOHAR"),
+    -> (30,"ROHIT","SHETTY"),
+    -> (40,"SANJAY","BHANSALI"),
+    -> (50,"RAJ","KAPOOR"),
+    -> (60,"RAJKUMMAR","HIRANI"),
+    -> (70,"TOM","CRIUSE"),
+    -> (80,"WILLIAM","DORAND"),
+    -> (90,"AJAY","DEVGN"),
+    -> (100,"SANJAY","DUTT"),
+    -> (110,"SUNIL","BHASKAR");
+Query OK, 11 rows affected (0.070 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [PYTHON_8_10]> SELECT * FROM MOVIE;
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+| mov_id | mov_title          | mov_year | mov_time | mov_lang    | mov_dt_rel | movie_rel_country |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+|      1 | DABANGG            |     2013 |      128 | HINDI       | 0000-00-00 | INDIA             |
+|      2 | PIRANHA            |     2010 |      100 | ENGLISH     | 0000-00-00 | AMERI             |
+|      3 | BAHUBALI           |     2015 |      216 | TELUGU      | 0000-00-00 | UK                |
+|      4 | SAHO               |     2020 |      183 | TAMIL       | 0000-00-00 | AUSTR             |
+|      5 | BHAUKAL            |     2019 |      112 | MALAYALAM   | 0000-00-00 | PAKIS             |
+|      6 | SHOLAY             |     1974 |      117 | HINDI       | 0000-00-00 | INDIA             |
+|      7 | AETBAAR            |     2003 |      159 | ENGLISH     | 0000-00-00 | CHINA             |
+|      8 | MISSION IMPOSSIBLE |     2016 |      115 | ENGLISH     | 0000-00-00 | UK                |
+|      9 | PAYING GUEST       |     2018 |      225 | CHINEESE    | 0000-00-00 | CHINA             |
+|     10 | TITAN              |     2017 |      212 | PORTUGUEESE | 0000-00-00 | SPAIN             |
+|     11 | SOCCER             |     2022 |      456 | ENGLISH     | 0000-00-00 | MEXIC             |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+11 rows in set (0.001 sec)
+
+MariaDB [PYTHON_8_10]> select * from actor;
++--------+-----------+-----------+------------+
+| act_id | act_fname | act_lname | act_gender |
++--------+-----------+-----------+------------+
+|      1 | SALMAN    | KHAN      | M          |
+|      2 | SHAHRUKH  | KHAN      | M          |
+|      3 | AKSHAY    | KUMAR     | M          |
+|      4 | KATRINA   | KAIF      | F          |
+|      5 | KAREENA   | KAPOOR    | F          |
+|      6 | URVASHI   | RAUTELA   | F          |
+|      7 | VICKY     | KAUSHAL   | M          |
+|      8 | JOHNNY    | DEPP      | M          |
+|      9 | RAJKUMAR  | RAO       | M          |
+|     10 | VICKY     | KAUSHAL   | M          |
+|     11 | KIRTI     | SANON     | F          |
++--------+-----------+-----------+------------+
+11 rows in set (0.000 sec)
+
+MariaDB [PYTHON_8_10]> select * from movie_cast;
++--------+--------+----------+
+| act_id | mov_id | role     |
++--------+--------+----------+
+|      1 |      1 | DABANGG  |
+|      2 |      2 | ROMANTIC |
+|      3 |      3 | THRILLER |
+|      4 |      4 | DANCE    |
+|      5 |      5 | DRAMA    |
+|      6 |      6 | SIMPLE   |
+|      7 |      7 | ACTION   |
+|      8 |      8 | FUNNY    |
+|      9 |      9 | COMEDY   |
+|     10 |     10 | STUNTS   |
+|     11 |     11 | GOSSIPS  |
++--------+--------+----------+
+11 rows in set (0.000 sec)
+
+MariaDB [PYTHON_8_10]> select * from director;
++--------+-----------+-----------+
+| dir_id | dir_fname | dir_lname |
++--------+-----------+-----------+
+|     10 | DAVID     | DHAVAN    |
+|     20 | KARAN     | JOHAR     |
+|     30 | ROHIT     | SHETTY    |
+|     40 | SANJAY    | BHANSALI  |
+|     50 | RAJ       | KAPOOR    |
+|     60 | RAJKUMMAR | HIRANI    |
+|     70 | TOM       | CRIUSE    |
+|     80 | WILLIAM   | DORAND    |
+|     90 | AJAY      | DEVGN     |
+|    100 | SANJAY    | DUTT      |
+|    110 | SUNIL     | BHASKAR   |
++--------+-----------+-----------+
+11 rows in set (0.001 sec)
+
+MariaDB [PYTHON_8_10]> create table movie_direction
+    -> (dir_id int,
+    -> mov_id int,
+    -> foreign key(dir_id) references director(dir_id),
+    -> foreign key(mov_id) references movie(mov_id));
+Query OK, 0 rows affected (0.488 sec)
+
+
+
+MariaDB [python_8_10]> create table reviewer
+    -> (rev_id int primary key,
+    -> rev_name varchar(30));
+Query OK, 0 rows affected (0.220 sec)
+
+MariaDB [python_8_10]> insert into reviewer values
+    -> (100,"SHAIZAD"),
+    -> (101,"GANESH"),
+    -> (102,"VINAYAK"),
+    -> (103,"SANTOSH"),
+    -> (104,"RAM"),
+    -> (105,"MANGAL"),
+    -> (106,"ASHOK"),
+    -> (107,"PRATHAMESH"),
+    -> (108,"MANOJ"),
+    -> (109,"MANISH"),
+    -> (110,"SURAJ");
+Query OK, 11 rows affected (0.084 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> SELECT * FROM REVIEWER;
++--------+------------+
+| rev_id | rev_name   |
++--------+------------+
+|    100 | SHAIZAD    |
+|    101 | GANESH     |
+|    102 | VINAYAK    |
+|    103 | SANTOSH    |
+|    104 | RAM        |
+|    105 | MANGAL     |
+|    106 | ASHOK      |
+|    107 | PRATHAMESH |
+|    108 | MANOJ      |
+|    109 | MANISH     |
+|    110 | SURAJ      |
++--------+------------+
+11 rows in set (0.001 sec)
+
+MariaDB [python_8_10]> create table rating
+    -> (mov_id int,
+    -> rev_id int,
+    -> rev_stars int,
+    -> num_o_ratings int,
+    -> foreign key(mov_id) references movie(mov_id),
+    -> foreign key(rev_id) references reviewer(rev_id));
+Query OK, 0 rows affected (0.214 sec)
+
+MariaDB [python_8_10]> desc rating;
++---------------+---------+------+-----+---------+-------+
+| Field         | Type    | Null | Key | Default | Extra |
++---------------+---------+------+-----+---------+-------+
+| mov_id        | int(11) | YES  | MUL | NULL    |       |
+| rev_id        | int(11) | YES  | MUL | NULL    |       |
+| rev_stars     | int(11) | YES  |     | NULL    |       |
+| num_o_ratings | int(11) | YES  |     | NULL    |       |
++---------------+---------+------+-----+---------+-------+
+4 rows in set (0.009 sec)
+
+MariaDB [python_8_10]> insert into rating values
+    -> (1,100,8.40,263575),
+    -> (2,101,7.90,20207),
+    -> (3,102,8.30,202778),
+    -> (4,103,8.20,48746),
+    -> (5,104,7.30,25489),
+    -> (6,105,8.60,45876),
+    -> (7,106,3.00,195961),
+    -> (8,107,8.10,203875),
+    -> (9,108,8.40,564898),
+    -> (10,109,7.00,830095),
+    -> (11,110,4.00,642132);
+Query OK, 11 rows affected (0.100 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from rating;
++--------+--------+-----------+---------------+
+| mov_id | rev_id | rev_stars | num_o_ratings |
++--------+--------+-----------+---------------+
+|      1 |    100 |         8 |        263575 |
+|      2 |    101 |         8 |         20207 |
+|      3 |    102 |         8 |        202778 |
+|      4 |    103 |         8 |         48746 |
+|      5 |    104 |         7 |         25489 |
+|      6 |    105 |         9 |         45876 |
+|      7 |    106 |         3 |        195961 |
+|      8 |    107 |         8 |        203875 |
+|      9 |    108 |         8 |        564898 |
+|     10 |    109 |         7 |        830095 |
+|     11 |    110 |         4 |        642132 |
++--------+--------+-----------+---------------+
+11 rows in set (0.027 sec)
+
+MariaDB [python_8_10]> create table movie_genres
+    -> (mov_id int,
+    -> gen_id int,
+    -> foreign key(mov_id) references movie(mov_id));
+Query OK, 0 rows affected (0.377 sec)
+
+
+
+MariaDB [python_8_10]> create table genres
+    -> (gen_id int primary key,
+    -> gen_title varchar(20));
+Query OK, 0 rows affected (0.257 sec)
+
+
+MariaDB [python_8_10]> insert into genres values
+    -> (901,"FIRE"),
+    -> (902,"SOLD"),
+    -> (903,"PYTHON"),
+    -> (904,"JAVA"),
+    -> (905,"ANDRIOD"),
+    -> (906,"PEARL"),
+    -> (907,"C"),
+    -> (908,"DJANGO"),
+    -> (909,"AI");
+Query OK, 9 rows affected (0.150 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> create table movie_direction
+    -> (dir_id int,
+    -> mov_id int,
+    -> foreign key(dir_id) references director(dir_id),
+    -> foreign key(mov_id) references movie(mov_id));
+ERROR 1050 (42S01): Table 'movie_direction' already exists
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> drop table movie_direction;
+Query OK, 0 rows affected (0.184 sec)
+
+
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> create table movie_direction
+    -> (dir_id int,
+    -> mov_id int,
+    -> foreign key(dir_id) references director(dir_id),
+    -> foreign key(mov_id) references movie(mov_id));
+Query OK, 0 rows affected (0.204 sec)
+
+
+MariaDB [python_8_10]> insert into movie_direction values
+    -> (10,1),
+    -> (20,2),
+    -> (50,5),
+    -> (60,6),
+    -> (70,7),
+    -> (80,8),
+    -> (90,9),
+    -> (100,10),
+    -> (110,11);
+Query OK, 9 rows affected (1.732 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from movie_direction;
++--------+--------+
+| dir_id | mov_id |
++--------+--------+
+|     10 |      1 |
+|     20 |      2 |
+|     50 |      5 |
+|     60 |      6 |
+|     70 |      7 |
+|     80 |      8 |
+|     90 |      9 |
+|    100 |     10 |
+|    110 |     11 |
++--------+--------+
+9 rows in set (0.176 sec)
+
+MariaDB [python_8_10]> create table movie_genres
+    -> (mov_id int,
+    -> gen_id int,
+    -> foreign key(mov_id) references movie(mov_id),
+    -> foreign key(gen_id) references genres(gen_id));
+Query OK, 0 rows affected (0.739 sec)
+
+MariaDB [python_8_10]> insert into movie_genres
+    -> values
+    -> (1,901),
+    -> (2,902),
+    -> (3,903),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 5
+MariaDB [python_8_10]> select * from genres;
++--------+-----------+
+| gen_id | gen_title |
++--------+-----------+
+|    901 | FIRE      |
+|    902 | SOLD      |
+|    903 | PYTHON    |
+|    904 | JAVA      |
+|    905 | ANDRIOD   |
+|    906 | PEARL     |
+|    907 | C         |
+|    908 | DJANGO    |
+|    909 | AI        |
++--------+-----------+
+9 rows in set (0.050 sec)
+
+MariaDB [python_8_10]> insert into genres value
+    -> (910,"TABLEAU")
+    -> (911,"DEEP LEARNING")
+    -> (912,"AWS");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(911,"DEEP LEARNING")
+(912,"AWS")' at line 3
+MariaDB [python_8_10]>
+MariaDB [python_8_10]>
+MariaDB [python_8_10]> insert into movie_genres values
+    -> (1,901),
+    -> (2,902),
+    -> (3,903),
+    -> (4,904),
+    -> (5,905),
+    -> (6,906),
+    -> (7,907),
+    -> (8,908),
+    -> (9,909);
+Query OK, 9 rows affected (0.164 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+MariaDB [python_8_10]> select * from actor;
++--------+-----------+-----------+------------+
+| act_id | act_fname | act_lname | act_gender |
++--------+-----------+-----------+------------+
+|      1 | SALMAN    | KHAN      | M          |
+|      2 | SHAHRUKH  | KHAN      | M          |
+|      3 | AKSHAY    | KUMAR     | M          |
+|      4 | KATRINA   | KAIF      | F          |
+|      5 | KAREENA   | KAPOOR    | F          |
+|      6 | URVASHI   | RAUTELA   | F          |
+|      7 | VICKY     | KAUSHAL   | M          |
+|      8 | JOHNNY    | DEPP      | M          |
+|      9 | RAJKUMAR  | RAO       | M          |
+|     10 | VICKY     | KAUSHAL   | M          |
+|     11 | KIRTI     | SANON     | F          |
++--------+-----------+-----------+------------+
+11 rows in set (0.139 sec)
+
+MariaDB [python_8_10]> select * from director;
++--------+-----------+-----------+
+| dir_id | dir_fname | dir_lname |
++--------+-----------+-----------+
+|     10 | DAVID     | DHAVAN    |
+|     20 | KARAN     | JOHAR     |
+|     30 | ROHIT     | SHETTY    |
+|     40 | SANJAY    | BHANSALI  |
+|     50 | RAJ       | KAPOOR    |
+|     60 | RAJKUMMAR | HIRANI    |
+|     70 | TOM       | CRIUSE    |
+|     80 | WILLIAM   | DORAND    |
+|     90 | AJAY      | DEVGN     |
+|    100 | SANJAY    | DUTT      |
+|    110 | SUNIL     | BHASKAR   |
++--------+-----------+-----------+
+11 rows in set (0.052 sec)
+
+MariaDB [python_8_10]> select * from movie_direction;
++--------+--------+
+| dir_id | mov_id |
++--------+--------+
+|     10 |      1 |
+|     20 |      2 |
+|     50 |      5 |
+|     60 |      6 |
+|     70 |      7 |
+|     80 |      8 |
+|     90 |      9 |
+|    100 |     10 |
+|    110 |     11 |
++--------+--------+
+9 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from movie_cast;
++--------+--------+----------+
+| act_id | mov_id | role     |
++--------+--------+----------+
+|      1 |      1 | DABANGG  |
+|      2 |      2 | ROMANTIC |
+|      3 |      3 | THRILLER |
+|      4 |      4 | DANCE    |
+|      5 |      5 | DRAMA    |
+|      6 |      6 | SIMPLE   |
+|      7 |      7 | ACTION   |
+|      8 |      8 | FUNNY    |
+|      9 |      9 | COMEDY   |
+|     10 |     10 | STUNTS   |
+|     11 |     11 | GOSSIPS  |
++--------+--------+----------+
+11 rows in set (0.001 sec)
+
+MariaDB [python_8_10]> select * from movie;
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+| mov_id | mov_title          | mov_year | mov_time | mov_lang    | mov_dt_rel | movie_rel_country |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+|      1 | DABANGG            |     2013 |      128 | HINDI       | 0000-00-00 | INDIA             |
+|      2 | PIRANHA            |     2010 |      100 | ENGLISH     | 0000-00-00 | AMERI             |
+|      3 | BAHUBALI           |     2015 |      216 | TELUGU      | 0000-00-00 | UK                |
+|      4 | SAHO               |     2020 |      183 | TAMIL       | 0000-00-00 | AUSTR             |
+|      5 | BHAUKAL            |     2019 |      112 | MALAYALAM   | 0000-00-00 | PAKIS             |
+|      6 | SHOLAY             |     1974 |      117 | HINDI       | 0000-00-00 | INDIA             |
+|      7 | AETBAAR            |     2003 |      159 | ENGLISH     | 0000-00-00 | CHINA             |
+|      8 | MISSION IMPOSSIBLE |     2016 |      115 | ENGLISH     | 0000-00-00 | UK                |
+|      9 | PAYING GUEST       |     2018 |      225 | CHINEESE    | 0000-00-00 | CHINA             |
+|     10 | TITAN              |     2017 |      212 | PORTUGUEESE | 0000-00-00 | SPAIN             |
+|     11 | SOCCER             |     2022 |      456 | ENGLISH     | 0000-00-00 | MEXIC             |
++--------+--------------------+----------+----------+-------------+------------+-------------------+
+11 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from reviewer;
++--------+------------+
+| rev_id | rev_name   |
++--------+------------+
+|    100 | SHAIZAD    |
+|    101 | GANESH     |
+|    102 | VINAYAK    |
+|    103 | SANTOSH    |
+|    104 | RAM        |
+|    105 | MANGAL     |
+|    106 | ASHOK      |
+|    107 | PRATHAMESH |
+|    108 | MANOJ      |
+|    109 | MANISH     |
+|    110 | SURAJ      |
++--------+------------+
+11 rows in set (0.017 sec)
+
+MariaDB [python_8_10]> select * from genres;
++--------+-----------+
+| gen_id | gen_title |
++--------+-----------+
+|    901 | FIRE      |
+|    902 | SOLD      |
+|    903 | PYTHON    |
+|    904 | JAVA      |
+|    905 | ANDRIOD   |
+|    906 | PEARL     |
+|    907 | C         |
+|    908 | DJANGO    |
+|    909 | AI        |
++--------+-----------+
+9 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from movie_genres;
++--------+--------+
+| mov_id | gen_id |
++--------+--------+
+|      1 |    901 |
+|      2 |    902 |
+|      3 |    903 |
+|      4 |    904 |
+|      5 |    905 |
+|      6 |    906 |
+|      7 |    907 |
+|      8 |    908 |
+|      9 |    909 |
++--------+--------+
+9 rows in set (0.000 sec)
+
+MariaDB [python_8_10]> select * from rating;
++--------+--------+-----------+---------------+
+| mov_id | rev_id | rev_stars | num_o_ratings |
++--------+--------+-----------+---------------+
+|      1 |    100 |         8 |        263575 |
+|      2 |    101 |         8 |         20207 |
+|      3 |    102 |         8 |        202778 |
+|      4 |    103 |         8 |         48746 |
+|      5 |    104 |         7 |         25489 |
+|      6 |    105 |         9 |         45876 |
+|      7 |    106 |         3 |        195961 |
+|      8 |    107 |         8 |        203875 |
+|      9 |    108 |         8 |        564898 |
+|     10 |    109 |         7 |        830095 |
+|     11 |    110 |         4 |        642132 |
++--------+--------+-----------+---------------+
+11 rows in set (0.068 sec)
+
+MariaDB [python_8_10]> select act_fname,act_id lname
+    -> from actor
+    -> where act_fname="vicky";
++-----------+-------+
+| act_fname | lname |
++-----------+-------+
+| VICKY     |     7 |
+| VICKY     |    10 |
++-----------+-------+
+2 rows in set (0.081 sec)
+
+MariaDB [python_8_10]>
